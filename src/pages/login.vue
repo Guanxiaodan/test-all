@@ -44,6 +44,7 @@
 <script>
   const debug = require('debug')('login');
   const _ = require('lodash');
+  const axios = require('axios');
 
   export default {
     data() {
@@ -65,7 +66,15 @@
           user: this.name,
           pwd: this.password,
         };
-        debug('拼装好的数据', send);
+        debug('要发送的数据', send);
+        axios.post('http://localhost:3000/login', send).then((res) => {
+          this.$Notice.success({
+            title: '登陆成功',
+          });
+          debug('请求成功', res);
+        }).catch((err) => {
+          debug('请求失败', err);
+        });
       },
     },
   };

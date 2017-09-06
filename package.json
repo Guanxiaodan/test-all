@@ -11,6 +11,7 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "debug": "^3.0.1",
     "iview": "^2.3.0",
     "lodash": "^4.17.4",
