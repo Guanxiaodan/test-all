@@ -9,9 +9,19 @@
 npm install --save
 ```
 
+### 进入service文件夹
+```angular2html
+npm install
+```
+
 ### 启动项目
 ```angular2html
 npm run dev
+```
+
+### 启动后台
+```angular2html
+node index.js
 ```
 
 ### 查看登录页面debug
