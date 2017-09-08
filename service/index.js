@@ -26,7 +26,18 @@ app.use('/', (req, res, next) => {
   }
 });
 
+// 服务器监听端口
+app.listen(3000, () => {
+
+});
+
 app.use(bodyparser.json());
+
+// 浏览器的访问接口
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
 
 // mongodb部分
 mongoClient.connect('mongodb://localhost:27017', { reconnectTries: 99999999, reconnectInterval: 5000 }).then((retDb) => {
@@ -35,10 +46,6 @@ mongoClient.connect('mongodb://localhost:27017', { reconnectTries: 99999999, rec
   debug('数据库打开成功');
 
 // 浏览器的访问接口
-  app.get('/', (req, res) => {
-    res.send('Hello World!');
-  });
-
   app.post('/login', (req, re) => {
     debug('req前端发过来的数据', req.body);
     if (_.isEmpty(req.body)) {
@@ -52,11 +59,6 @@ mongoClient.connect('mongodb://localhost:27017', { reconnectTries: 99999999, rec
       re.status(400).send('插入数据库失败');
       debug('错误了', err);
     });
-  });
-
-// 服务器监听端口
-  app.listen(3000, () => {
-
   });
 }).catch((e) => {
   debug(e.message);
