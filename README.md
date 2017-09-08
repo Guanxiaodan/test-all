@@ -23,6 +23,16 @@ npm run dev
 ```angular2html
 node index.js
 ```
+> 如果想查看后台打印的日志，执行：
+```angular2html
+DEBUG=* node index.js
+```
+> 如果想查看后台index页面的打印，执行：
+> 就是看index页面require('debug')后面第二个括号里面是啥
+```angular2html
+DEBUG=loginService node index.js
+```
+
 
 ### 查看登录页面debug
 > 在浏览器控制台里,输入下面命令，回车，刷新页面
