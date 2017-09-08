@@ -34,7 +34,7 @@
           <Input class="to-top" v-model="password" placeholder="请输入密码..." type="password" style="width: 300px"></Input>
         </div>
         <div>
-          <Button type="primary" class="to-top-large" @click="login">登 录</Button>
+          <Button type="primary" class="to-top-large" @click="login">注 册</Button>
         </div>
       </div>
     </div>
@@ -69,10 +69,13 @@
         debug('要发送的数据', send);
         axios.post('http://localhost:3000/login', send).then((res) => {
           this.$Notice.success({
-            title: '登陆成功',
+            title: '注册成功',
           });
           debug('请求成功', res);
         }).catch((err) => {
+          this.$Notice.error({
+            title: '注册失败',
+          });
           debug('请求失败', err);
         });
       },

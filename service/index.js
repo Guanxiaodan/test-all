@@ -4,9 +4,10 @@
  */
 
 const express = require('express');
-const bodyparser = require('body-parser');
+const bodyparser = require('body-parser'); // 用于解析传过来的req.body，不然会是undefined
 const _ = require('lodash');
-const debug = require('debug')('loginService')
+const debug = require('debug')('loginService');
+const mongoClient = require('mongodb').MongoClient;
 
 const app = express();
 
@@ -27,21 +28,38 @@ app.use('/', (req, res, next) => {
 
 app.use(bodyparser.json());
 
-// 浏览器的访问接口
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+// mongodb部分
+mongoClient.connect('mongodb://localhost:27017', { reconnectTries: 99999999, reconnectInterval: 5000 }).then((retDb) => {
+  debug('正在使用的数据库mongodb://localhost:27017');
+  this.db = retDb.db('testAll');
+  debug('数据库打开成功');
 
-app.post('/login', (req, res) => {
-  debug('req前端发过来的数据', req.body);
-  if (_.isEmpty(req.body)) {
-    res.status(400).send('参数错误');
-    return;
-  }
-  res.status(200).send('登陆成功');
-});
+// 浏览器的访问接口
+  app.get('/', (req, res) => {
+    res.send('Hello World!');
+  });
+
+  app.post('/login', (req, re) => {
+    debug('req前端发过来的数据', req.body);
+    if (_.isEmpty(req.body)) {
+      re.status(400).send('参数错误');
+      return;
+    }
+
+    this.db.collection('user').insertOne({ user: req.body.user, pwd: req.body.pwd }).then((doc) => {
+      re.status(200).send('插入数据库成功');
+    }).catch((err) => {
+      re.status(400).send('插入数据库失败');
+      debug('错误了', err);
+    });
+  });
 
 // 服务器监听端口
-app.listen(3000, () => {
+  app.listen(3000, () => {
 
+  });
+}).catch((e) => {
+  debug(e.message);
+  debug('数据库打开失败', e);
+  process.exit();
 });
