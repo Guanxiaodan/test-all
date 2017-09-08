@@ -27,7 +27,7 @@ node index.js
 ```angular2html
 DEBUG=* node index.js
 ```
-> 如果想查看后台index页面的打印，执行：
+> 如果想查看后台index.js的打印，执行：
 > 就是看index页面require('debug')后面第二个括号里面是啥
 ```angular2html
 DEBUG=loginService node index.js
@@ -42,7 +42,7 @@ localStorage.debug='login'
 
 ```
 
-### 纯前端后台，没有数据库，接口是index里的'/',直接在浏览器中输入**http://localhost:3000/**，会返回结果
+### 纯前端后台，没有数据库，接口是index里的'/',直接在浏览器中输入 http://localhost:3000/* ，会返回结果
 
 ### 如何查看数据库
 命令行执行：
